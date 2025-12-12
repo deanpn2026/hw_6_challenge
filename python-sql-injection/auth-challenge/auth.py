@@ -11,7 +11,7 @@ from datetime import datetime
 from hashlib import sha256
 
 # Configuration Constants
-DATABASE_NAME = 'users.db'
+DATABASE_NAME = "/tmp/auth.db"
 LOGIN_ATTEMPTS_LIMIT = 5
 SESSION_TIMEOUT_MINUTES = 30
 
