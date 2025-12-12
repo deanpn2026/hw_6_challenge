@@ -1,3 +1,10 @@
+import sqlite3
+import os
+import re
+from datetime import datetime
+from hashlib import sha256
+from database import *
+
 # --- SECURE FUNCTION: The Intended Solution ---
 
 

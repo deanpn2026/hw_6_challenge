@@ -4,8 +4,7 @@ import sqlite3
 import sys
 sys.path.append("/challenge")
 # Note: In a Codesafe environment, this imports the student's modified auth.py
-from database import initialize_database, hash_password, DATABASE_NAME
-from auth import authenticate_user
+from auth import initialize_database, hash_password, DATABASE_NAME, authenticate_user
 
 class TestAuthentication(unittest.TestCase):
 

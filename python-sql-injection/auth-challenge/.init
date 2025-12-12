@@ -1,5 +1,4 @@
 chmod 777 /challenge/auth.py
-chmod 4711 /challenge/database.py
 chmod 4711 /challenge/checker
 chmod 4711 /challenge/test.py
 chmod 4711 /challenge/DESCRIPTION.md
