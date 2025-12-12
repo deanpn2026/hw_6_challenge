@@ -1,25 +1,6 @@
-# Secure User Search API — SQL Injection Prevention (Python)
+#  SQL Defense Dojo
 
-## Scenario
+## Overview
 
-Your HR team uses a small internal microservice to search for employee records. Recently, security researchers discovered that the user search API is vulnerable to **SQL injection**, allowing attackers to exfiltrate all employee records by injecting malicious SQL through the search bar.
+A hands-on environment for practicing real-world software security skills. Participants tackle challenges that involve identifying vulnerabilities, understanding attack techniques, and implementing defensive solutions. Dojos cover multiple areas such as authentication flaws, input validation, and database security, giving learners experience with applied security in realistic scenarios.
 
-Your job is to **fix the SQL injection vulnerability** by replacing raw string-formatted SQL with **parameterized prepared statements** using Python’s `sqlite3` module.
-
-## Your Tasks
-
-1. Examine the existing `search_users` function inside `starter/user_search.py`.
-2. Identify how SQL injection occurs.
-3. Update the function to safely parameterize the SQL query.
-4. Ensure all existing functionality still works.
-5. Run the test suite found in `starter/tests/` to confirm:
-   - normal behavior remains intact  
-   - SQL injection payloads no longer work  
-   - the API interface is unchanged  
-
-Estimated time to complete: **30–60 minutes**
-
-You do **not** need to write new features or refactor other components.  
-Your objective is strictly to fix the security flaw.
-
-Good luck!

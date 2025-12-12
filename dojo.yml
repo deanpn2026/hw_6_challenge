@@ -1,5 +1,5 @@
-id: python-sql-injection-prevention
-name: Python SQL Injection Prevention Dojo
+id: sql-defense-dojo
+name: SQL Defense Dojo
 type: security
 image: pwncollege/challenge-legacy:latest
 
@@ -8,9 +8,9 @@ modules:
     name: Preventing SQL Injection in Python
     description: >
       Learn how insecure SQL queries lead to SQL injection vulnerabilities,
-      and fix a real Python codebase by replacing raw string queries with
+      and fix a Python codebase by replacing raw string queries with
       prepared statements. This challenge walks you through securing a
-      vulnerable user search API while keeping functionality intact.
+      vulnerable user authentication API while keeping functionality intact.
     challenges:
       - id: auth-challenge
         name: SQL Injection Attack Prevention
