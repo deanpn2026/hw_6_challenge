@@ -12,5 +12,5 @@ modules:
       prepared statements. This challenge walks you through securing a
       vulnerable user search API while keeping functionality intact.
     challenges:
-      - id: SQL-Injection-Attack-Prevention
+      - id: sql-injection-attack-prevention
         name: SQL-Injection-Attack-Prevention
