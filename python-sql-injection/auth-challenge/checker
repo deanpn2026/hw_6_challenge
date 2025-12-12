@@ -1,4 +1,4 @@
-#!/opt/pwn.college/python
+#!/usr/bin/env python3
 import unittest
 import sqlite3
 # Note: In a Codesafe environment, this imports the student's modified auth.py
