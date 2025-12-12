@@ -2,7 +2,7 @@
 # FinTrust Solutions - User Authentication Module (auth.py)
 # Version 1.0.0 - Production Code Base
 # WARNING: Contains CRITICAL Vulnerability (SQL Injection)
-# Total Lines: 104
+# Total Lines: 105
 # =========================================================================
 
 import sqlite3
