@@ -13,4 +13,4 @@ modules:
       vulnerable user search API while keeping functionality intact.
     challenges:
       - id: sql-injection-attack-prevention
-        name: SQL-Injection-Attack-Prevention
+        name: SQL Injection Attack Prevention
