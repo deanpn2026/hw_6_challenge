@@ -1,4 +1,4 @@
 name: Preventing SQL Injection in Python
 challenges:
-  - id: x
+  - id: auth-challenge
     name: SQL Injection Attack Prevention
