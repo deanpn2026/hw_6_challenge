@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+import unittest
+import sqlite3
+# Note: In a Codesafe environment, this imports the student's modified auth.py
+from auth import authenticate_user, initialize_database, hash_password
+
+class TestAuthentication(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        """Set up test database with sample users"""
+        initialize_database() # Ensure the table exists
+        conn = sqlite3.connect('users.db')
+        cursor = conn.cursor()
+        
+        # Clear existing and insert test users with securely generated hashes
+        cursor.execute("DELETE FROM users")
+        
+        # Insert Alice (Admin) and Bob (Standard User)
+        alice_pass = 'password123'
+        bob_pass = 'securepass'
+        
+        cursor.execute(
+            "INSERT INTO users VALUES (1, 'alice', ?, 1, NULL, 0)", 
+            (hash_password(alice_pass),)
+        )
+        cursor.execute(
+            "INSERT INTO users VALUES (2, 'bob', ?, 0, NULL, 0)", 
+            (hash_password(bob_pass),)
+        )
+        conn.commit()
+        conn.close()
+
+    # Test 1: Valid credentials should authenticate
+    def test_valid_login(self):
+        self.assertTrue(authenticate_user('alice', 'password123'), "Alice should log in successfully.")
+        self.assertTrue(authenticate_user('bob', 'securepass'), "Bob should log in successfully.")
+
+    # Test 2: Invalid credentials should fail
+    def test_invalid_login(self):
+        self.assertFalse(authenticate_user('alice', 'wrongpass'), "Incorrect password should fail.")
+        self.assertFalse(authenticate_user('nonexistent', 'password'), "Non-existent user should fail.")
+
+    # Test 3: CRITICAL SECURITY CHECK - SQL injection attempts should be blocked
+    def test_sql_injection_basic(self):
+        # Classic OR 1=1 attack
+        # If vulnerable, this would return True, bypassing auth.
+        self.assertFalse(authenticate_user("admin' OR '1'='1", 'anything'), "Basic OR 1=1 injection should fail.")
+        self.assertFalse(authenticate_user("admin' OR '1'='1' --", 'anything'), "Commented OR 1=1 injection should fail.")
+        self.assertFalse(authenticate_user("' OR 1=1 --", 'anything'), "Full bypass injection should fail.")
+
+    def test_sql_injection_comment(self):
+        # Comment-based bypass using different formats
+        self.assertFalse(authenticate_user("alice'--", ''), "SQL comment bypass should fail.")
+        self.assertFalse(authenticate_user("alice'/*", '*/'), "SQL multi-line comment bypass should fail.")
+
+    # Test 4: Edge cases and malformed input
+    def test_empty_inputs(self):
+        self.assertFalse(authenticate_user('', ''), "Empty username and password should fail.")
+        self.assertFalse(authenticate_user('alice', ''), "Empty password should fail.")
+        
+    def test_malicious_characters(self):
+        # Should be blocked either by parameterized query or input validation
+        self.assertFalse(authenticate_user("user'; DROP TABLE users; --", 'pass'), "Injection with destructive commands must fail.")
+
+def run_tests():
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestAuthentication)
+    result = unittest.TextTestRunner(verbosity=2).run(suite)
+    return result.wasSuccessful()
+
+def get_flag() -> str:
+    with open("/flag") as f:
+        return f.read()
+
+if __name__ == '__main__':
+    if run_tests():
+        print("\n" + "="*50)
+        print("All tests pass! The fix is secure.")
+        print("="*50)
+        # In a Codesafe environment, this is where the flag would be printed.
+        print(f"FLAG: {get_flag()}")
+    else:
+        print("\nSome tests failed. The vulnerability is either still present or existing functionality is broken.")

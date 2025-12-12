@@ -1,0 +1,4 @@
+chmod 777 /challenge/auth.py
+chmod 4711 /challenge/checker
+
+rm /challenge/.init
