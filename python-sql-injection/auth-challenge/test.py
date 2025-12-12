@@ -2,7 +2,7 @@
 import unittest
 import sqlite3
 # Note: In a Codesafe environment, this imports the student's modified auth.py
-from auth import authenticate_user, initialize_database, hash_password
+from auth import authenticate_user, initialize_database, hash_password, DATABASE_NAME
 
 class TestAuthentication(unittest.TestCase):
 
@@ -10,7 +10,7 @@ class TestAuthentication(unittest.TestCase):
     def setUpClass(cls):
         """Set up test database with sample users"""
         initialize_database() # Ensure the table exists
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect(DATABASE_NAME)
         cursor = conn.cursor()
         
         # Clear existing and insert test users with securely generated hashes
